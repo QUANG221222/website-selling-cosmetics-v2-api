@@ -1,6 +1,6 @@
 import { env } from '~/configs/enviroment'
 
-export const WHITELIST_DOMAINS = ['']
+export const WHITELIST_DOMAINS = ['https://website-selling-cosmetics-v2-fe.vercel.app']
 
 export const WEBSITE_DOMAIN =
   env.BUILD_MODE === 'production'

@@ -1,10 +1,10 @@
 {
-  "name": "website-selling-cosmetics-v2",
+  "name": "website-selling-cosmetics-v2-api",
   "private": true,
   "version": "1.0.0",
-  "description": "Websit Selling Cosmetics v2",
+  "description": "Website Selling Cosmetics v2 - API",
   "main": "index.js",
-  "repository": "https://github.com/QUANG221222/Website-Selling-Cosmetics-v2.git",
+  "repository": "https://github.com/QUANG221222/website-selling-cosmetics-v2-api.git",
   "author": "WangCoder2k5",
   "license": "UNLICENSED",
   "engines": {
