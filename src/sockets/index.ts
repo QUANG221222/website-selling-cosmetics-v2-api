@@ -151,6 +151,7 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
           ? env.WEBSITE_DOMAIN_PRODUCTION
           : env.WEBSITE_DOMAIN_DEVELOPMENT,
       credentials: true,
+      methods: ['GET', 'POST']
     },
     transports: [ 'websocket', 'polling' ],
     path: '/beauty/',
