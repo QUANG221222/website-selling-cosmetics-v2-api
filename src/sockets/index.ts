@@ -151,21 +151,12 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
           ? env.WEBSITE_DOMAIN_PRODUCTION
           : env.WEBSITE_DOMAIN_DEVELOPMENT,
       credentials: true,
-      methods: ['GET', 'POST', 'OPTIONS'],
-      allowedHeaders: ['*']
     },
-    transports: ['websocket'],
+    transports: ["polling", 'websocket'],
+    path: '/beauty/',
     allowEIO3: true,
     pingTimeout: 60000,
     pingInterval: 25000,
-    connectTimeout: 45000,
-    upgradeTimeout: 30000,
-    cookie: false,
-    path: '/socket.io/',
-    serveClient: false,
-    allowUpgrades: true,
-    perMessageDeflate: false,
-    maxHttpBufferSize: 1e6,
   })
 
   io.on('connection', (socket) => {

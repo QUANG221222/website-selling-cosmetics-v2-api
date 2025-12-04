@@ -22,7 +22,7 @@ const StartServer = () => {
     app.set('trust proxy', 1) // trust first proxy
 
     io.engine.on('connection_error', (err: any) => {
-      console.log('Socket.IO connection error:', err)
+      console.log('Socket.IO connection error:', err.message)
     })
   }
 
@@ -34,13 +34,6 @@ const StartServer = () => {
 
   // Config Rate Limiter
   // app.use(limiter)
-
-  app.use((req, res, next) => {
-    if (req.path.startsWith('/socket.io')) {
-      return next()
-    }
-    session(sessionConfig)(req, res, next)
-  })
 
   // Enable session
   app.use(session(sessionConfig))
