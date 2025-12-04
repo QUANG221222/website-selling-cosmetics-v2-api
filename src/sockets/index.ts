@@ -150,16 +150,20 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
         env.BUILD_MODE === 'production'
           ? env.WEBSITE_DOMAIN_PRODUCTION
           : env.WEBSITE_DOMAIN_DEVELOPMENT,
-      credentials: true
+      credentials: true,
+      methods: ['GET', 'POST', 'OPTIONS'],
+      allowedHeaders: ['*']
     },
-    transports: ['websocket', 'polling'],
+    transports: [ 'polling', 'websocket'],
     allowEIO3: true,
     pingTimeout: 60000,
-    pingInterval: 25000
+    pingInterval: 25000,
+    connectTimeout: 45000,
+    upgradeTimeout: 30000
   })
 
   io.on('connection', (socket) => {
-    // console.log('✅ User connected:', socket.id)
+    console.log('✅ User connected:', socket.id)
     setupSocketEvents(socket)
   })
 
