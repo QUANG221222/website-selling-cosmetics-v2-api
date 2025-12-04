@@ -151,7 +151,11 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
           ? env.WEBSITE_DOMAIN_PRODUCTION
           : env.WEBSITE_DOMAIN_DEVELOPMENT,
       credentials: true
-    }
+    },
+    transports: ['websocket', 'polling'],
+    allowEIO3: true,
+    pingTimeout: 60000,
+    pingInterval: 25000
   })
 
   io.on('connection', (socket) => {

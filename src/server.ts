@@ -16,10 +16,14 @@ const StartServer = () => {
   const server = http.createServer(app)
 
   // Initialize Socket.IO
-  initializeSocket(server)
+  const io = initializeSocket(server)
 
   if (env.BUILD_MODE === 'production') {
     app.set('trust proxy', 1) // trust first proxy
+
+    io.engine.on('connection_error', (err: any) => {
+      console.log('Socket.IO connection error:', err)
+    })
   }
 
   // Config CORS
