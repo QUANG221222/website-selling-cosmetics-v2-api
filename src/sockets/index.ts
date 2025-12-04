@@ -154,17 +154,17 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
       methods: ['GET', 'POST']
     },
     path: '/socket.io/',
-    transports: ['polling', 'websocket'],
+    transports: ['websocket', 'polling'],
     allowEIO3: true,
     pingTimeout: 60000,
     pingInterval: 25000,
-    connectTimeout: 45000,
-    upgradeTimeout: 30000,
     maxHttpBufferSize: 1e8,
-    cookie: false,
-    serveClient: false,
-    allowUpgrades: true,
-    perMessageDeflate: false
+    cookie: {
+      name: 'io',
+      httpOnly: true,
+      sameSite: env.BUILD_MODE === 'production' ? 'none' : 'lax',
+      secure: env.BUILD_MODE === 'production'
+    }
   })
 
   io.on('connection', (socket) => {
