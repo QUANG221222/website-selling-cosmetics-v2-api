@@ -153,7 +153,7 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
       credentials: true,
       methods: ['GET', 'POST']
     },
-    path: '/socket.io/',
+    // path: '/socket.io/',
     transports: ['websocket', 'polling'],
     allowEIO3: true,
     pingTimeout: 60000,
@@ -164,7 +164,8 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
       httpOnly: true,
       sameSite: env.BUILD_MODE === 'production' ? 'none' : 'lax',
       secure: env.BUILD_MODE === 'production'
-    }
+    },
+    connectTimeout: 45000
   })
 
   io.on('connection', (socket) => {
