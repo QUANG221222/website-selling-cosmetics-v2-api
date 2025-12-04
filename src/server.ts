@@ -1,5 +1,5 @@
 import express from 'express'
-import http from 'http'
+// import http from 'http'
 import session from 'express-session'
 import { sessionConfig } from './configs/session'
 import { middlewares } from '~/middlewares'
@@ -13,17 +13,17 @@ import { initializeSocket } from '~/sockets'
 
 const StartServer = () => {
   const app = express()
-  const server = http.createServer(app)
+  // const server = http.createServer(app)
 
   // Initialize Socket.IO
-  const io = initializeSocket(server)
+  // const io = initializeSocket(server)
 
   if (env.BUILD_MODE === 'production') {
     app.set('trust proxy', 1) // trust first proxy
 
-    io.engine.on('connection_error', (err: any) => {
-      console.log('Socket.IO connection error:', err.message)
-    })
+    // io.engine.on('connection_error', (err: any) => {
+    //   console.log('Socket.IO connection error:', err.message)
+    // })
   }
 
   // Config CORS
@@ -51,8 +51,9 @@ const StartServer = () => {
   // Error Handling Middlewares
   app.use(middlewares.errorHandlingMiddleware)
 
+  let server;
   if (env.BUILD_MODE === 'dev') {
-    server.listen(
+    server = app.listen(
       Number(env.LOCAL_APP_PORT),
       String(env.LOCAL_APP_HOST),
       () => {
@@ -62,12 +63,17 @@ const StartServer = () => {
       }
     )
   } else {
-    server.listen(Number(process.env.PORT), () => {
+    server = app.listen(Number(process.env.PORT), () => {
       console.log(
         `PRODUCTION: Hello ${env.AUTHOR_NAME}, Backend Server is running successfully at Port: ${process.env.PORT}`
       )
     })
   }
+
+  const io = initializeSocket(server);
+
+  // Make io accessible in app
+  app.set('io', io)
 }
 
 // IIFE to start the server

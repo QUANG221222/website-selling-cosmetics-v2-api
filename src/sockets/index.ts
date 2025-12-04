@@ -153,7 +153,7 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
       credentials: true,
       methods: ['GET', 'POST']
     },
-    // path: '/socket.io/',
+    path: '/beauty/',
     transports: ['websocket', 'polling'],
     allowEIO3: true,
     pingTimeout: 60000,
