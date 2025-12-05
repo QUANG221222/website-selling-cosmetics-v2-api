@@ -14,7 +14,7 @@ export const sessionConfig = {
     maxAge: 1000 * 60 * 60, // 60 minutes
     httpOnly: true, // security: only server can access cookie
     secure: env.BUILD_MODE === 'production', // true: only send cookie over HTTPS
-    path: env.BUILD_MODE === 'production' ? env.COOKIE_PROD_PATH : '/', // set cookie path
+    domain: env.BUILD_MODE === 'production' ? env.COOKIE_DOMAIN : '/', // set cookie domain
     sameSite: (env.BUILD_MODE === 'production' ? 'none' : 'lax') as
       | 'none'
       | 'lax' // CSRF protection

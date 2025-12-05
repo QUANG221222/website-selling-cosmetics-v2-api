@@ -18,5 +18,5 @@ export const env = {
   WEBSITE_DOMAIN_DEVELOPMENT: process.env.WEBSITE_DOMAIN_DEVELOPMENT,
   AUTHOR_NAME: process.env.AUTHOR_NAME,
   BUILD_MODE: process.env.BUILD_MODE,
-  COOKIE_PROD_PATH: process.env.COOKIE_PROD_PATH,
+  COOKIE_DOMAIN: process.env.COOKIE_DOMAIN,
 }
