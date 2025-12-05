@@ -35,12 +35,12 @@ const StartServer = () => {
   // Config Rate Limiter
   // app.use(limiter)
 
-  app.use((req, res, next) => {
-    if (req.path.startsWith('/socket.io')) {
-      return next()
-    }
-    session(sessionConfig)(req, res, next)
-  })
+  // app.use((req, res, next) => {
+  //   if (req.path.startsWith('/socket.io')) {
+  //     return next()
+  //   }
+  //   session(sessionConfig)(req, res, next)
+  // })
 
   // Enable session
   app.use(session(sessionConfig))
