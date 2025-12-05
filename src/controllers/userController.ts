@@ -124,7 +124,7 @@ const logout = (req: Request, res: Response, next: NextFunction): void => {
       }
 
       res.clearCookie('connect.sid', {
-        path: '/',
+        path: env.BUILD_MODE === 'production' ? env.COOKIE_PROD_PATH : '/',
         httpOnly: true,
         secure: env.BUILD_MODE === 'production',
         sameSite: (env.BUILD_MODE === 'production' ? 'none' : 'lax') as
