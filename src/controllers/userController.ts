@@ -124,7 +124,7 @@ const logout = (req: Request, res: Response, next: NextFunction): void => {
       }
 
       res.clearCookie('connect.sid', {
-        domain: env.BUILD_MODE === 'production' ? env.COOKIE_DOMAIN : '/',
+        domain: env.BUILD_MODE === 'production' ? env.COOKIE_DOMAIN : undefined,
         httpOnly: true,
         secure: env.BUILD_MODE === 'production',
         sameSite: (env.BUILD_MODE === 'production' ? 'none' : 'lax') as
@@ -147,13 +147,10 @@ const getCurrentUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const userId = req.session.user?.userId
+    const userId = req.session.user?.userId as string
 
     if (!userId) {
-      res.status(StatusCodes.UNAUTHORIZED).json({
-        message: 'Not authenticated'
-      })
-      return
+      throw new ApiError(StatusCodes.UNAUTHORIZED, 'Người dùng chưa đăng nhập')
     }
 
     const user = await services.userService.getById(userId)
@@ -209,7 +206,9 @@ const getAllUsersWithPagination = async (
     const limit = parseInt(req.query.limit as string) || 7
 
     if (page < 1) {
-      throw new ApiError(StatusCodes.BAD_REQUEST, 'Trang phải lớn hơn 0')
+     return next(
+        new ApiError(StatusCodes.BAD_REQUEST, 'Trang phải lớn hơn 0')
+      )
     }
 
     const result = await services.userService.getAllUsersWithPagination(

@@ -28,6 +28,7 @@ Router.route('/').post(
 )
 
 Router.route('/me').get(
+    middlewares.authHandlingMiddleware.isAuthorized,
     controllers.userController.getCurrentUser
 )
 Router.route('/').get(    
