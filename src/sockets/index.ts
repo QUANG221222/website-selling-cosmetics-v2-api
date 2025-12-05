@@ -169,7 +169,7 @@ export const initializeSocket = (server: HTTPServer): SocketIOServer => {
   })
 
   io.on('connection', (socket) => {
-    console.log('✅ User connected:', socket.id)
+    // console.log('✅ User connected:', socket.id)
     setupSocketEvents(socket)
   })
 
